@@ -1,16 +1,16 @@
 import { React, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
+import styled from 'styled-components';
 
-import Header from './components/Header';
-import AddTask from './components/AddTask';
-import SingleTask from './components/SingleTask';
-import TaskDetails from './components/TaskDetails';
+import Header from './components/Global/Header';
+import AddTask from './components/Home/AddTask';
+import SingleTask from './components/Home/SingleTask';
+import TaskDetails from './components/Details/TaskDetails';
 
-import './App.css';
 import { useEffect } from 'react';
 
-const App = () => {
+const App = ({ className }) => {
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -19,25 +19,12 @@ const App = () => {
     }
   ])
 
-  const handleTaskClick = taskId => {
-    const newTasks = tasks.map(task => {
-      if(task.id === taskId) return {...task, completed: !task.completed}
-      return task;
-    })
-    setTasks(newTasks);
-  }
-
   const handleTaskAddition = taskTitle => {
     setTasks([...tasks, {
       id: tasks.length > 0 ? (tasks.at(-1).id + 1) : 1,
       completed: false,
       title: taskTitle
     }])
-  }
-
-  const handleTaskRemotion = taskId => {
-    const newTasks = tasks.filter(task => task.id !== taskId);
-    setTasks([...newTasks]);
   }
 
   useEffect(() => {
@@ -51,7 +38,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="container">
+      <div className={className}>
         <Header />
         <Routes>
           <Route
@@ -65,11 +52,10 @@ const App = () => {
                     return (
                       <SingleTask
                         task={task}
+                        tasks={tasks}
                         key={task.id}
-                        handleTaskRemotion={handleTaskRemotion}
-                        handleTaskClick={handleTaskClick}
+                        setTasks={setTasks}
                         />);
-                        
                     }
                   )}
                 </div>
@@ -86,4 +72,20 @@ const App = () => {
   );
 }
 
-export default App;
+const StyledApp = styled(App)`
+  border: 2px solid chartreuse;
+  margin: 30px auto;
+  width: 100%;
+  max-width: 500px;
+  min-height: 300px;
+  border-radius: 10px;
+  padding: 30px;
+
+  .tasks-container{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+`;
+
+export default StyledApp;
