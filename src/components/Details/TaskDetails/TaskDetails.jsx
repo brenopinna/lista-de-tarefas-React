@@ -2,7 +2,7 @@ import { React } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Button from '../Global/Button'
+import { Button } from '../../../Global/styles'
 
 const TaskDetails = ({ className }) => {
    const { taskTitle } = useParams();
