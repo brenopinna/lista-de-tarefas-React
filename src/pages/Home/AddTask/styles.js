@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button } from '../../../Global/styles'
+import Button from '../../../components/Button/index'
 
 export const AddTaskContainer = styled.div`
    max-width: 100%;

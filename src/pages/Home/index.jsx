@@ -1,7 +1,7 @@
 import React from 'react';
-import AddTask from './AddTask/AddTask'
+import AddTask from './AddTask/index'
 import { TasksContainer } from './TasksContainer/styles';
-import SingleTask from './SingleTask/SingleTask'
+import SingleTask from './SingleTask/index'
 
 const Home = ({ tasks, setTasks, handleTaskAddition }) => {
    return (

@@ -1,15 +1,13 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AppContainer } from './Global/styles'
 import axios from 'axios';
 
-import Header from './Global/Header';
-import Home from './components/Home/Home'
-import TaskDetails from './components/Details/TaskDetails/TaskDetails';
+import { AppContainer } from './styles'
+import Header from '../components/Header/index';
+import Home from '../pages/Home/index'
+import TaskDetails from '../pages/Details/TaskDetails/index';
 
-import { useEffect } from 'react';
-
-const App = ({ className }) => {
+const App = () => {
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -19,11 +17,15 @@ const App = ({ className }) => {
   ])
 
   const handleTaskAddition = taskTitle => {
-    setTasks([...tasks, {
-      id: tasks.length > 0 ? (tasks.at(-1).id + 1) : 1,
-      completed: false,
-      title: taskTitle
-    }])
+    if(taskTitle.trim()){
+      setTasks([...tasks, {
+        id: tasks.length > 0 ? (tasks.at(-1).id + 1) : 1,
+        completed: false,
+        title: taskTitle
+      }])
+    }else{
+      alert('Por favor, insira um valor válido.')
+    }
   }
 
   useEffect(() => {
